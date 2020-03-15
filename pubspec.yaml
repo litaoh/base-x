@@ -1,7 +1,6 @@
 name: base_x
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
-author: litao<litaoh@dingtalk.com>
 homepage: https://github.com/litaoh/base-x
 
 environment:
