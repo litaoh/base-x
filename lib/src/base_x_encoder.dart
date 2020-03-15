@@ -1,12 +1,12 @@
 part of basex;
 
-class BaseXEncoder extends Converter<Uint8List, String>{
+class BaseXEncoder extends Converter<Uint8List, String> {
   final String alphabet;
   BaseXEncoder(this.alphabet);
 
   @override
   String convert(Uint8List bytes) {
-    if (bytes?.isEmpty??true) {
+    if (bytes?.isEmpty ?? true) {
       return '';
     }
 
@@ -18,15 +18,20 @@ class BaseXEncoder extends Converter<Uint8List, String>{
       begin++;
       zeroes++;
     }
+
     /// Allocate enough space in big-endian base58 representation.
     var size = ((end - begin) * (log(256) / log(alphabet.length)) + 1).toInt();
     var b58 = Uint8List(size);
+
     /// Process the bytes.
     while (begin != end) {
       var carry = bytes[begin];
+
       /// Apply "b58 = b58 * 256 + ch".
       var i = 0;
-      for (var it1 = size - 1; (carry != 0 || i < length) && (it1 != -1); it1--, i++) {
+      for (var it1 = size - 1;
+          (carry != 0 || i < length) && (it1 != -1);
+          it1--, i++) {
         carry += (256 * b58[it1]);
         b58[it1] = (carry % alphabet.length);
         carry = (carry ~/ alphabet.length);
@@ -37,11 +42,13 @@ class BaseXEncoder extends Converter<Uint8List, String>{
       length = i;
       begin++;
     }
+
     /// Skip leading zeroes in base58 result.
     var it2 = size - length;
     while (it2 != size && b58[it2] == 0) {
       it2++;
     }
+
     /// Translate the result into a string.
     var str = ''.padLeft(zeroes, alphabet[0]);
     for (; it2 < size; ++it2) {

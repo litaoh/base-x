@@ -1,6 +1,6 @@
 part of basex;
 
-class BaseXCodec extends Codec<Uint8List, String>{
+class BaseXCodec extends Codec<Uint8List, String> {
   String alphabet;
   BaseXEncoder _encoder;
   BaseXDecoder _decoder;
@@ -17,5 +17,4 @@ class BaseXCodec extends Codec<Uint8List, String>{
     _decoder ??= BaseXDecoder(alphabet);
     return _decoder;
   }
-
 }
