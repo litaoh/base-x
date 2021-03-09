@@ -1,11 +1,10 @@
 part of basex;
 
 class BaseXDecoder extends Converter<String, Uint8List> {
-  String alphabet;
-  Uint8List _baseMap;
+  final String alphabet;
+  final _baseMap = Uint8List(256);
 
   BaseXDecoder(this.alphabet) {
-    _baseMap = Uint8List(256);
     _baseMap.fillRange(0, _baseMap.length, 255);
     for (var i = 0; i < alphabet.length; i++) {
       var xc = alphabet.codeUnitAt(i);
@@ -16,18 +15,19 @@ class BaseXDecoder extends Converter<String, Uint8List> {
     }
   }
 
+  /// An exception is thrown if [input] starts or ends with a space or has a character whose codeUnit is greater than 255.
   @override
   Uint8List convert(String input) {
-    if (input?.isEmpty ?? true) {
+    if (input.isEmpty) {
       return Uint8List(0);
     }
     var psz = 0;
 
     /// Skip leading spaces.
     if (input[psz] == ' ') {
-      return null;
+      throw ArgumentError.value(
+          input, 'input', 'input cannot begin with a space.');
     }
-    ;
 
     /// Skip and count leading '1's.
     var zeroes = 0;
@@ -49,7 +49,8 @@ class BaseXDecoder extends Converter<String, Uint8List> {
 
       /// Invalid character
       if (carry == 255) {
-        return null;
+        throw ArgumentError.value(input, 'input',
+            'The character "${input[psz]}" at index $psz is invalid.');
       }
       var i = 0;
       for (var it3 = size - 1;
@@ -68,7 +69,8 @@ class BaseXDecoder extends Converter<String, Uint8List> {
 
     /// Skip trailing spaces.
     if (psz < input.length && input[psz] == ' ') {
-      return null;
+      throw ArgumentError.value(
+          input, 'input', 'input cannot end with a space.');
     }
 
     /// Skip leading zeroes in b256.

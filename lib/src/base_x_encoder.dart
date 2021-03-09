@@ -1,15 +1,12 @@
 part of basex;
 
 class BaseXEncoder extends Converter<Uint8List, String> {
+  const BaseXEncoder(this.alphabet);
+
   final String alphabet;
-  BaseXEncoder(this.alphabet);
 
   @override
   String convert(Uint8List bytes) {
-    if (bytes?.isEmpty ?? true) {
-      return '';
-    }
-
     var zeroes = 0;
     var length = 0;
     var begin = 0;

@@ -29,8 +29,8 @@ void main() {
   group('encode should return String', () {
     valid.forEach((Map<String, String> v) {
       test('${v['alphabet']} encode ${v['string']}', () {
-        var hex = base[v['alphabet']]
-            .encode(Uint8List.fromList(HEX.decode(v['hex'])));
+        var hex = base[v['alphabet']]!
+            .encode(Uint8List.fromList(HEX.decode(v['hex']!)));
         expect(v['string'], hex);
       });
     });
@@ -39,7 +39,8 @@ void main() {
   group('decode should return Uin8List', () {
     valid.forEach((Map<String, String> v) {
       test('${v['alphabet']} decode ${v['hex']}', () {
-        expect(HEX.decode(v['hex']), base[v['alphabet']].decode(v['string']));
+        expect(
+            HEX.decode(v['hex']!), base[v['alphabet']]!.decode(v['string']!));
       });
     });
   });
