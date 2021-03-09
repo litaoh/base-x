@@ -1,12 +1,12 @@
 name: base_x
 description: Fast base encoding / decoding of any given alphabet dart implementation library.
-version: 1.0.0
+version: 2.0.0
 homepage: https://github.com/litaoh/base-x
 
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dev_dependencies:
-  hex: ^0.1.2
+  hex: ^0.2.0
   pedantic: ^1.8.0
   test: ^1.6.0
