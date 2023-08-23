@@ -32,7 +32,7 @@ class BaseXDecoder extends Converter<String, Uint8List> {
     /// Skip and count leading '1's.
     var zeroes = 0;
     var length = 0;
-    while (input[psz] == alphabet[0]) {
+    while (input.length > psz && input[psz] == alphabet[0]) {
       zeroes++;
       psz++;
     }
