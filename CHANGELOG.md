@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Fixed: check input length
+
 ## 2.0.0
 
 - Support null safety
